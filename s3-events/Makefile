@@ -2,11 +2,10 @@
 FUNCTION := $(shell basename "$(PWD)")
 # get the latest commit hash in the short form
 COMMIT := $(shell git rev-parse --short HEAD)
-
 RUNTIME  := go1.x
-#VERSION  := 0.1.0
 BIN_DIR  := dist
-ARCHIVE  := $(addsuffix _$(COMMIT).zip,$(FUNCTION))
+ARCHIVE  := $(addsuffix -$(COMMIT).zip,$(FUNCTION))
+FLAGS := -ldflags "-X main.commit=$(COMMIT)"
 
 BUCKET   := tutorial
 
@@ -29,7 +28,7 @@ help: Makefile
 ## build: Builds the Go Lambda function
 build: clean
 	mkdir -p $(BIN_DIR)
-	GOOS=linux GOARCH=amd64 go build -o $(BIN_DIR)/$(FUNCTION)
+	GOOS=linux GOARCH=amd64 go build $(FLAGS) -o $(BIN_DIR)/$(FUNCTION)
 	zip -r9jT $(BIN_DIR)/$(ARCHIVE) $(BIN_DIR)/$(FUNCTION)
 
 ## clean: Clean the dist folder
