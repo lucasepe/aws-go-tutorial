@@ -1,4 +1,4 @@
-module github.com/lucasepe/aws-go-tutorial/sns-events
+module github.com/lucasepe/aws-go-tutorial/sqs-events
 
 go 1.15
 
