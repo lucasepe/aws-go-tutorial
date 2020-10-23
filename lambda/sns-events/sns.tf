@@ -11,7 +11,7 @@ resource "aws_sns_topic" "call_lambda_topic" {
 
 resource "aws_lambda_permission" "allow_sns_invoke" {
   action        = "lambda:InvokeFunction"
-  function_name = var.function_name
+  function_name = aws_lambda_function.lambda.arn // var.function_name
   principal     = "sns.amazonaws.com"
   statement_id  = "AllowSubscriptionToSNS"
   source_arn    = aws_sns_topic.call_lambda_topic.arn

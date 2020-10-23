@@ -7,6 +7,7 @@ BIN_DIR  := dist
 ARCHIVE  := $(addsuffix -$(COMMIT).zip,$(FUNCTION))
 FLAGS := -ldflags "-X main.commit=$(COMMIT)"
 
+QUEUE_NAME := test-queue
 
 # Base AWS CLI docker command
 AWS_CLI  := docker run --network host --env-file ~/.localstack/aws.env \
@@ -56,10 +57,9 @@ destroy:
 check:
 	$(AWS_CLI) lambda get-function --function-name $(FUNCTION)
 
-
 ## sns-publish: Creates the S3 bucket
-sns-publish:
-	$(AWS_CLI) sns publish \
-	--topic-arn "arn:aws:sns:us-east-1:000000000000:test-topic" \
-    --message "Toc toc. Who is it? A friend...open the door"
-
+sqs-publish:
+	$(AWS_CLI) sqs send-message \
+	--queue-url http://localhost:4566/000000000000/$(QUEUE_NAME) \
+	--message-body "Do. Or do not. There is no try." \
+	--delay-seconds 10 --message-attributes '{"username":{"DataType":"String","StringValue":"Pinco Pallus"}}'
