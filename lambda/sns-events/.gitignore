@@ -50,3 +50,7 @@ crash.log
 #
 *.tfvars
 
+# Exclude tfplan
+tfplan
+
+
