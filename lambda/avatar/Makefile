@@ -7,7 +7,7 @@ BIN_DIR  := dist
 ARCHIVE  := $(addsuffix -$(COMMIT).zip,$(FUNCTION))
 FLAGS := -ldflags "-X main.commit=$(COMMIT)"
 
-QUEUE_NAME := test-queue
+TABLE_NAME := test-table
 
 # Base AWS CLI docker command
 AWS_CLI  := docker run --network host --env-file ~/.localstack/aws.env \
@@ -57,9 +57,14 @@ destroy:
 check:
 	$(AWS_CLI) lambda get-function --function-name $(FUNCTION)
 
-## sqs-publish: Publishes a simple message to SQSL
-sqs-publish:
-	$(AWS_CLI) sqs send-message \
-	--queue-url http://localhost:4566/000000000000/$(QUEUE_NAME) \
-	--message-body "Do. Or do not. There is no try." \
-	--delay-seconds 10 --message-attributes '{"username":{"DataType":"String","StringValue":"Pinco Pallus"}}'
+## invoke: Invoke the API
+invoke:
+	curl http://localhost:4566/restapis/eaeexzippo/stage/_user_request_/demo \
+	--header "Content-Type: application/json" \
+	--request POST --data '{"username":"xyz","password":"xyz"}'
+
+## patch: Patches Method
+patch:
+	$(AWS_CLI) apigateway update-rest-api \
+	--rest-api-id 'wxz8u8rgwh' \
+	--patch-operations '[{"op": "replace", "path": "/binaryMediaTypes/*~1*", "value": "*~1*"}]'

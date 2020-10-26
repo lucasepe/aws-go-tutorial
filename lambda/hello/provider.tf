@@ -7,6 +7,11 @@ terraform {
   }
 }
 
+variable "localstack_url" {
+  description = "Localstack endpoint"
+  default     = "http://localhost:4566"
+}
+
 provider "aws" {
   secret_key = "mock_secret_key"
   access_key = "mock_access_key"

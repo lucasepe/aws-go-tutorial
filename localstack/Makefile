@@ -11,12 +11,12 @@ help: Makefile
 
 ## start: Starts Localstack
 start:
-	docker-compose up -d
+	docker-compose --env-file $(PWD)/.env up -d
 
 ## stop: Stops Localstack
 stop:
-	docker-compose down
+	docker-compose $(PWD)/.env down
 
 ## logs: Collect Localstack docker logs
 logs:
-	docker-compose logs -f localstack
+	docker-compose $(PWD)/.env logs -f localstack
