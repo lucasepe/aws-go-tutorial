@@ -63,8 +63,12 @@ invoke:
 	--header "Content-Type: application/json" \
 	--request POST --data '{"username":"xyz","password":"xyz"}'
 
+## list: List all ReST Api
+list:
+	$(AWS_CLI) apigateway get-method --rest-api-id 'ldcz6g0uri' --resource-id 'omq8xlywxj' --http-method GET
+
 ## patch: Patches Method
 patch:
 	$(AWS_CLI) apigateway update-rest-api \
-	--rest-api-id 'wxz8u8rgwh' \
-	--patch-operations '[{"op": "replace", "path": "/binaryMediaTypes/*~1*", "value": "*~1*"}]'
+	--rest-api-id 'ldcz6g0uri' --debug \
+	--patch-operations 'op=replace,path=/binaryMediaTypes/*~1*,value=*~1*'

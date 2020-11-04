@@ -1,6 +1,24 @@
 .DEFAULT_GOAL := help
+.PHONY: help start start-detach stop logs
 
-.PHONY: help
+FLAGS := --env-file $${HOME}/.localstack/.env
+
+## start: Starts Localstack
+start:
+	docker-compose $(FLAGS) up
+
+## startd: Starts Localstack in detached mode
+startd:
+	docker-compose $(FLAGS) up -d
+
+## stop: Stops Localstack
+stop:
+	docker-compose $(FLAGS) down
+
+## logs: Collect Localstack docker logs
+logs:
+	docker-compose $(FLAGS) logs
+
 ## help: This help
 help: Makefile
 	@echo
@@ -8,15 +26,3 @@ help: Makefile
 	@echo
 	@sed -n 's/^##//p' $< | column -t -s ':' |  sed -e 's/^/ /'
 	@echo
-
-## start: Starts Localstack
-start:
-	docker-compose --env-file $(PWD)/.env up -d
-
-## stop: Stops Localstack
-stop:
-	docker-compose $(PWD)/.env down
-
-## logs: Collect Localstack docker logs
-logs:
-	docker-compose $(PWD)/.env logs -f localstack

@@ -81,6 +81,17 @@ resource "aws_lambda_permission" "allow_api_gateway" {
   source_arn    = "${aws_api_gateway_rest_api.api.execution_arn}/*/*/*"
 }
 
+
+# Prints the ReST Api ID.
+output "rest_api_id" {
+  value = aws_api_gateway_rest_api.api.id
+}
+
+# Prints the resource ID.
+output "resource_id" {
+  value = aws_api_gateway_resource.resource.id
+}
+
 # Prints the endpoints URL.
 output "resource_url" {
   value = "${var.localstack_url}/restapis/${aws_api_gateway_rest_api.api.id}/stage/_user_request_/${aws_api_gateway_resource.avatars.path_part}/type-a-username-here"
