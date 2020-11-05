@@ -6,7 +6,7 @@ import (
 
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-lambda-go/lambdacontext"
-	"github.com/lucasepe/aws-go-tutorial/hello-custom-event/haversine"
+	"github.com/lucasepe/aws-go-tutorial/custom-events/haversine"
 )
 
 // Place is a geographic location.

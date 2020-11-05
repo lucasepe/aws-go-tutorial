@@ -1,4 +1,4 @@
-module github.com/lucasepe/aws-go-tutorial/hello-custom-event
+module github.com/lucasepe/aws-go-tutorial/custom-events
 
 go 1.15
 
