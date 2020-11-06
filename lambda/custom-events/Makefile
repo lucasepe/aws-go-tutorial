@@ -61,5 +61,5 @@ check:
 ## invoke: Invokes the Lambda function
 invoke:
 	$(AWS_CLI) lambda invoke --function-name $(FUNCTION) \
-	--cli-binary-format raw-in-base64-out \
+	--log-type None --cli-binary-format raw-in-base64-out \
 	--payload '{ "from": {"id": "La Jolla", "lat": 32.839335, "lon": -117.260591}, "to": {"id": "Vernazza", "lat": 44.135199, "lon": 9.681594} }' /dev/stdout

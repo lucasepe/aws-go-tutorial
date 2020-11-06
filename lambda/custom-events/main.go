@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"fmt"
+	"log"
 
 	"github.com/aws/aws-lambda-go/lambda"
 	"github.com/aws/aws-lambda-go/lambdacontext"
@@ -22,6 +22,12 @@ type QueryDistanceEvent struct {
 	To   Place `json:"to"`
 }
 
+// QueryDistanceResponse is the Lambda computation result.
+type QueryDistanceResponse struct {
+	Miles      float64 `json:"km"`
+	Kilometers float64 `json:"mi"`
+}
+
 // The entry point that runs your Lambda function code.
 func main() {
 	lambda.Start(handler)
@@ -31,13 +37,15 @@ func main() {
 //
 // See https://docs.aws.amazon.com/lambda/latest/dg/golang-handler.html for valid handler signatures.
 // See https://github.com/aws/aws-lambda-go for event details.
-func handler(ctx context.Context, evt QueryDistanceEvent) {
+func handler(ctx context.Context, evt QueryDistanceEvent) (QueryDistanceResponse, error) {
 	lc, _ := lambdacontext.FromContext(ctx)
-	fmt.Printf("Aws RequestID: %s\n", lc.AwsRequestID)
+	log.Printf("Aws RequestID: %s\n", lc.AwsRequestID)
 
 	src := haversine.Coord{Lat: evt.From.Lat, Lon: evt.From.Lat}
 	dst := haversine.Coord{Lat: evt.To.Lat, Lon: evt.To.Lon}
 	mi, km := haversine.Distance(src, dst)
 
-	fmt.Printf("%s is %.3f km (%.3f mi) from %s", evt.From.ID, km, mi, evt.To.ID)
+	log.Printf("%s is %.3f km (%.3f mi) from %s", evt.From.ID, km, mi, evt.To.ID)
+
+	return QueryDistanceResponse{Miles: mi, Kilometers: km}, nil
 }
