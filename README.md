@@ -6,9 +6,10 @@ This repository contains the source code for the examples in the book:
 
 You can ...
 
-- download the TOC &amp a sample chapter here:
+- download the [TOC and a Sample Chapter](http://samples.leanpub.com/awslambdausinglocalstackgoterraform-sample.pdf) here:
   - http://samples.leanpub.com/awslambdausinglocalstackgoterraform-sample.pdf
-- purchase the book here:
+
+- [purchase](https://leanpub.com/awslambdausinglocalstackgoterraform) the book here:
   - https://leanpub.com/awslambdausinglocalstackgoterraform
 
 
